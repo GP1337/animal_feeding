@@ -1,7 +1,9 @@
 package zoo;
 
+import event.AnimalIsHungryEvent;
 import food.Food;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import zoo.animals.Animal;
@@ -19,21 +21,15 @@ public class Worker {
         this.animalList = animalList;
     }
 
-    @Scheduled(cron = "1 * * * * *")
-    public void feedAnimals(){
+    @EventListener
+    public void animalIsHungryListener(AnimalIsHungryEvent event){
+        event.getAnimal().feed(Food.builder()
+                .foodType(event.getAnimal().getFoodType())
+                .expiredDate(LocalDateTime.now().plusDays(1))
+                .value(5)
+                .build());
 
-        animalList.forEach(animal -> {
-            if (animal.isHungry()){
-                animal.feed(Food.builder()
-                        .foodType(animal.getFoodType())
-                        .expiredDate(LocalDateTime.now().plusDays(1))
-                        .value(20)
-                        .build());
-
-                System.out.println("Worker feeds the " + animal.getClass().getSimpleName());
-            }
-        });
-
+        System.out.println("Worker feeds the " + event.getAnimal().getClass().getSimpleName());
     }
 
 }

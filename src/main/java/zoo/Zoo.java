@@ -22,7 +22,7 @@ public class Zoo {
         this.animalList = animalList;
         this.worker = worker;
 
-        worker.feedAnimals();
+//        worker.feedAnimals();
 
     }
 }

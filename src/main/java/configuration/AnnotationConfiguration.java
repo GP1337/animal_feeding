@@ -5,7 +5,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 @Configuration
-@ComponentScan(value = {"zoo"})
+@ComponentScan(value = {"zoo", "aspects"})
 @EnableAspectJAutoProxy
 @EnableScheduling
 @EnableAsync

@@ -7,7 +7,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class Lion extends Animal{
 
-    public Lion(ApplicationEventPublisher applicationEventPublisher) {
+    public Lion(ApplicationEventPublisher publisher) {
+        super(publisher);
         setFoodType(FoodType.MEAT);
     }
 
